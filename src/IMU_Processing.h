@@ -1,11 +1,12 @@
 #pragma once
 #include <cmath>
 #include <math.h>
-// #include <deque>
+#include <deque>
 // #include <mutex>
 // #include <thread>
 #include <csignal>
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
+#include <condition_variable>
 // #include <so3_math.h>
 #include <Eigen/Eigen>
 // #include "Estimator.h"
@@ -13,12 +14,12 @@
 #include <pcl/common/io.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
-#include <nav_msgs/Odometry.h>
+#include <nav_msgs/msg/odometry.hpp>
 #include <pcl/kdtree/kdtree_flann.h>
-#include <tf/transform_broadcaster.h>
-#include <eigen_conversions/eigen_msg.h>
+#include <tf2_ros/transform_broadcaster.h>
+//#include <eigen_conversions/eigen_msg.h>
 #include <pcl_conversions/pcl_conversions.h>
-#include <sensor_msgs/PointCloud2.h>
+#include <sensor_msgs/msg/point_cloud2.hpp>
 
 /// *************Preconfiguration
 
@@ -35,7 +36,7 @@ class ImuProcess
   ~ImuProcess();
   
   void Reset();
-  void Process(const MeasureGroup &meas, PointCloudXYZI::Ptr pcl_un_);
+  void Process(const MeasureGroup &meas, PointCloudXYZI::Ptr cur_pcl_un_);
   void set_gyr_cov(const V3D &scaler);
   void set_acc_cov(const V3D &scaler);
   void Set_init(Eigen::Vector3d &tmp_gravity, Eigen::Matrix3d &rot);
@@ -56,4 +57,5 @@ class ImuProcess
   void IMU_init(const MeasureGroup &meas, int &N);
   V3D mean_gyr;
   int init_iter_num = 1;
+  rclcpp::Logger logger;
 };

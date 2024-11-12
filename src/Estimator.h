@@ -16,7 +16,7 @@ extern std::vector<int> time_seq;
 extern PointCloudXYZI::Ptr feats_down_body; //(new PointCloudXYZI());
 extern PointCloudXYZI::Ptr feats_down_world; //(new PointCloudXYZI());
 extern std::vector<V3D> pbody_list;
-extern std::vector<PointVector> Nearest_Points; 
+extern std::vector<PointVector> Nearest_Points;
 extern std::shared_ptr<IVoxType> ivox_;                    // localmap in ivox
 extern std::vector<float> pointSearchSqDis;
 extern bool point_selected_surf[100000]; // = {0};
@@ -56,6 +56,6 @@ void h_model_output(state_output &s, Eigen::Matrix3d cov_p, Eigen::Matrix3d cov_
 
 void h_model_IMU_output(state_output &s, esekfom::dyn_share_modified<double> &ekfom_data);
 
-void pointBodyToWorld(PointType const * const pi, PointType * const po);
+void pointBodyToWorld(PointType const *const pi, PointType *const po);
 
 #endif
